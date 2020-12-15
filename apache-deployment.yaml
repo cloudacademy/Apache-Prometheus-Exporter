@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: apache-exporter
+  name: apache-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apache-exporter
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: apache-exporter
+    spec:
+      containers:
+      - image: tsarlewey/caapacheimage:1
+        name: cloudacademy-apache-server
+        ports:
+          - containerPort: 80
+      - image: lusotycoon/apache-exporter
+        name: apache-exporter
+        ports:
+          - containerPort: 9117
+      - image: prom/prometheus
+        name: prom-server
+        ports:
+          - containerPort: 9090
+        volumeMounts:
+          - mountPath: /etc/prometheus
+            name: prom-config
+      volumes:
+        - name: prom-config
+          configMap:
+            name: prometheusconfigfile
+status: {}

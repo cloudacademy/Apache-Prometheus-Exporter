@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache
+  namespace: prometheus
+spec:
+  type: NodePort
+  ports:
+  - name: apache-np
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: apache-exporter
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-exporter-svc
+  namespace: prometheus
+spec:
+  ports:
+  - name: exporter-ci
+    port: 9117
+    protocol: TCP
+    targetPort: 9117
+  selector:
+    app: apache-exporter
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prom-service
+  namespace: prometheus
+spec:
+  ports:
+  - name: prometheus-np
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: apache-exporter
+  type: NodePort
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: prometheus
+spec: {}
+status: {}
+---
+apiVersion: v1
+data:
+  prometheus.yml: |-
+      global:
+        scrape_interval: 15s
+      scrape_configs:
+        - job_name: 'apache'
+          scrape_interval: 5s
+          static_configs:
+          - targets: ['172.17.0.8:9117']
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: prometheusconfigfile
+  namespace: prometheus
+

@@ -16,6 +16,7 @@ spec:
       creationTimestamp: null
       labels:
         app: apache-exporter
+      namespace: prometheus
     spec:
       containers:
       - image: tsarlewey/caapacheimage:1

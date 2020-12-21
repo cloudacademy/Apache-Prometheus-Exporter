@@ -5,6 +5,7 @@ metadata:
   labels:
     app: apache-exporter
   name: apache-exporter
+  namespace: prometheus
 spec:
   replicas: 1
   selector:
@@ -16,7 +17,6 @@ spec:
       creationTimestamp: null
       labels:
         app: apache-exporter
-      namespace: prometheus
     spec:
       containers:
       - image: tsarlewey/caapacheimage:1

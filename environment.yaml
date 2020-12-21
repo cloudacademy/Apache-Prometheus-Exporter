@@ -50,20 +50,4 @@ spec:
   selector:
     app: apache-exporter
   type: NodePort
----
-apiVersion: v1
-data:
-  prometheus.yml: |-
-      global:
-        scrape_interval: 15s
-      scrape_configs:
-        - job_name: 'apache'
-          scrape_interval: 5s
-          static_configs:
-          - targets: ['172.17.0.8:9117']
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  name: prometheusconfigfile
-  namespace: prometheus
 

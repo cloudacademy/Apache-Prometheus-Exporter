@@ -12,6 +12,13 @@ Single Node Cluster
 - Latest Prometheus Image
 - Latest Apache-Exporter Image
 - Version 1 Apache Image from Cloud Academy [Included in the deployment.yaml]
+## Docker Image
+
+A custom Docker image was created for this course, if you'd like to create it navigate to the docker folder and run:
+
+```
+sudo docker build . 
+```
 
 ## Getting Started
 
@@ -65,8 +72,7 @@ minikube service prom-service -n prometheus
 ```
 
 Navigate to the URL provided and in the PromQL expression bar, begin typing 'apache' and you will receive a list of metrics to choose from.
-
 There's another way we can quickly check that the Apache exporter is working as well: through a simple curl to the Prometheus Exporter
 ```
-curl http://192.168.99.109:32596/api/v1/label/job/values
+curl http://{URL_OF_PREVIOUS_COMMAND}/api/v1/label/job/values
 ```

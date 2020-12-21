@@ -22,19 +22,36 @@ sudo docker build .
 
 ## Getting Started
 
-First we are going to create the services for our Deployment:
+To kick things off clone this repo:
 ```
-kubectl create -f https://github.com/cloudacademy/Flyby-Prometheus-Exporter/blob/master/environment.yaml
+git clone https://github.com/cloudacademy/Flyby-Prometheus-Exporter.git
+cd Flyby-Prometheus-Exporter
+```
+After that we are going to create the services for our Deployment:
+```
+kubectl create -f environment.yaml
 ```
 Set the context:
 ```
 kubectl config set-context --current --namespace prometheus
 ```
+Now we will create the deployment itself. Since our config for prometheus resides in a configMap we will create that first and then the deployment. The selectors from the environment.yaml will associate the deployment with the appropriate services and expose our microservices approriately.
+```
+kubectl create -f config.yaml
+kubectl create -f deployment.yaml
+```
+Verify we can see the deployment:
+```
+kubectl get po -w
+```
+(To stop watching the Pod creation, simply press Ctl-C)
+
+You should see a deployment with three containers created no more than 20 seconds after the above command is ran.
 After we can see the pods, run the following command to get the IP of the deployment:
 ```
 kubectl get po -o wide
 ```
-Place the IP provided there in the config.yaml file for prometheus to scrape against:
+Place the IP provided there in the config.yaml file for prometheus to scrape against (If these are the only pods, it will likely be the 172.17.0.3 IP Address):
 ```
       global:
         scrape_interval: 15s
@@ -44,23 +61,6 @@ Place the IP provided there in the config.yaml file for prometheus to scrape aga
           static_configs:
           - targets: ['{PLACE_THE_IP_ADDRESS_HERE}:9117']
 ```
-Now create the configmap:
-```
-kubectl create -f config.yaml
-```
-
-Now we will create the deployment itself. The selectors from the environment.yaml will associate the deployment with the appropriate services and expose our
-microservices approriately.
-```
-kubectl create -f https://github.com/cloudacademy/Flyby-Prometheus-Exporter/blob/master/deployment.yaml
-```
-Verify we can see the deployment:
-```
-kubectl get po -w
-```
-(To stop watching the Pod creation, simply press Ctl-C)
-
-You should see a deployment with three containers created no more than 20 seconds after the above command is ran.
 
 ## Accessing our Prometheus Dashboard
 
@@ -72,7 +72,7 @@ minikube service prom-service -n prometheus
 ```
 
 Navigate to the URL provided and in the PromQL expression bar, begin typing 'apache' and you will receive a list of metrics to choose from.
-There's another way we can quickly check that the Apache exporter is working as well: through a simple curl to the Prometheus Exporter
+There's also another way we can quickly check that the Apache exporter is working as well: through a simple curl to the Prometheus Server
 ```
 curl http://{URL_OF_PREVIOUS_COMMAND}/api/v1/label/job/values
 ```

@@ -76,3 +76,6 @@ There's also another way we can quickly check that the Apache exporter is workin
 ```
 curl http://{URL_OF_PREVIOUS_COMMAND}/api/v1/label/job/values
 ```
+
+What if we wanted to see the metrics at the Apache Exporter itself? Instead of the Prometheus Server?
+

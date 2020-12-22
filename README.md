@@ -93,9 +93,14 @@ Apache has a stress testing tool that we can use call 'ab' to test some connecti
 k run ab --image jordi/ab --rm -it --restart=Never -- -n 1000 -c 20 http://192.168.99.109:30750/
 ```
 
-Navigate back to the Prometheus Dashboard and check Apache Metrics seeing the increased numbers indicating a spike in traffic.
+Navigate back to the Prometheus Dashboard and check the apache metrics 'apache_cpuload' and notice the spike in traffic
 
 ## Conclusions
 
 Now that you've got a working Prometheus Deployment complete with an Apache Webserver and Apache Exporter - Explore the environment! 
 
+And when you're all done - Clean up the environment:
+
+```
+kubectl delete -f environment.yaml -f config.yaml -f deployment.yaml
+```

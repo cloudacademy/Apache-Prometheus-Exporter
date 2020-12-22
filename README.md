@@ -77,5 +77,25 @@ There's also another way we can quickly check that the Apache exporter is workin
 curl http://{URL_OF_PREVIOUS_COMMAND}/api/v1/label/job/values
 ```
 
-What if we wanted to see the metrics at the Apache Exporter itself? Instead of the Prometheus Server?
+### What if we wanted to see the metrics at the Apache Exporter itself? Instead of the Prometheus Server?
+
+Let's run a kubernetes pod with a curl container to curl the /metrics endpoint for the Apache webserver. This pod will run, curl the provided URL (replace the IP address below with your deployment/pod IP), then return the output to our terminal. The reason we have to run this within the cluster, is because we are not exposing the Apache exporter publicly, only through a ClusterIP. Lastly, we are piping the output to the more command in order to sift through the metrics easier.
+```
+kubectl run curl --image curlimages/curl -it --rm --restart=Never -- http://172.17.0.3:9117/metrics | more
+```
+
+Perfect! We now see our Apache exporter metrics outside of our Prometheus Server. 
+
+### Generating some Metrics
+
+Apache has a stress testing tool that we can use call 'ab' to test some connections to the server. Let's run that pod now with the similar commands previously used. This command will run 1000 requests with a concurrency of 20 (requests ran simultaenously). Ensure you replace the IP Address below with your Minikube IP and NodePort (minikube service apache -n prometheus):
+```
+k run ab --image jordi/ab --rm -it --restart=Never -- -n 1000 -c 20 http://192.168.99.109:30750/
+```
+
+Navigate back to the Prometheus Dashboard and check Apache Metrics seeing the increased numbers indicating a spike in traffic.
+
+## Conclusions
+
+Now that you've got a working Prometheus Deployment complete with an Apache Webserver and Apache Exporter - Explore the environment! 
 

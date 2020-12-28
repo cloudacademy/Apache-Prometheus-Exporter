@@ -20,6 +20,8 @@ A custom Docker image was created for this course, if you'd like to create it na
 sudo docker build . 
 ```
 
+All docker images are provided for this course from CloudAcademy in the YAML files
+
 ## Getting Started
 
 To kick things off clone this repo:

@@ -34,8 +34,8 @@ spec:
         volumeMounts:
           - mountPath: /etc/prometheus
             name: prom-config
-      volumes:
-        - name: prom-config
-          configMap:
-            name: prometheusconfigfile
+      #volumes:
+      #  - name: prom-config
+      #    configMap:
+      #      name: prometheusconfigfile
 status: {}

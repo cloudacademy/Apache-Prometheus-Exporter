@@ -39,15 +39,8 @@ spec:
         name: prom-server
         ports:
           - containerPort: 9090
-        volumeMounts:
-          - mountPath: /etc/prometheus
-            name: prom-config
         resources:
          limits:
           memory: "128Mi"
           cpu: "250m"
-      volumes:
-        - name: prom-configv1
-          configMap:
-            name: prometheusconfigfile
 status: {}

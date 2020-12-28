@@ -62,30 +62,13 @@ Place the IP provided there in the config.yaml file for prometheus to scrape aga
           static_configs:
           - targets: ['{PLACE_THE_IP_ADDRESS_HERE}:9117']
 ```
-
-Now create the configMap and make the required changes to the deployment.yaml by altering the version number in the volumes stack from v1 to v2:
-
-```
-      - image: prom/prometheus
-        name: prom-server
-        ports:
-          - containerPort: 9090
-        volumeMounts:
-        _  - mountPath: /etc/prometheus
-        _    name: prom-config
-        resources:
-         limits:
-          memory: "128Mi"
-          cpu: "250m"
-      volumes:
-        - name: prom-configv2
-          configMap:
-            name: prometheusconfigfile
-```
+Create the configMap, delete the old deployment, and create the new deployment (Note: Wait for the old deployment to be remvoed before creating the new one, else the IP Address will be wrong in the configMap):
 
 ```
 kubectl create -f config.yaml
-kubectl apply -f deployment.yaml
+kubectl delete -f deploymentv1.yaml
+{Wait for deploymentv1 to be destroyed}
+kubectl create -f deploymentv2.yaml
 ```
 
 

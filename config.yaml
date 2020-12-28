@@ -11,5 +11,5 @@ data:
 kind: ConfigMap
 metadata:
   creationTimestamp: null
-  name: prometheusconfigfile
+  name: prometheusconfigfilev1
   namespace: prometheus

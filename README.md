@@ -62,7 +62,7 @@ Place the IP provided there in the config.yaml file for prometheus to scrape aga
           static_configs:
           - targets: ['{PLACE_THE_IP_ADDRESS_HERE}:9117']
 ```
-Create the configMap, delete the old deployment, and create the new deployment (Note: Wait for the old deployment to be remvoed before creating the new one, else the IP Address will be wrong in the configMap):
+Create the configMap, delete the old deployment, and create the new deployment (Note: Wait for the old deployment to be removed before creating the new one, else the IP Address will be wrong in the configMap):
 
 ```
 kubectl create -f config.yaml

@@ -52,7 +52,7 @@ After we can see the pods, run the following command to get the IP of the deploy
 ```
 kubectl get po -o wide
 ```
-Place the IP provided there in the config.yaml file for prometheus to scrape against (If these are the only pods, it will likely be the 172.17.0.3 IP Address):
+Place the IP provided there in the config.yaml file for prometheus to scrape against (If these are the only pods, it will likely be the 172.17.0.3 IP Address if you have no other pods running on a Minikube Cluster):
 ```
       global:
         scrape_interval: 15s
@@ -63,7 +63,7 @@ Place the IP provided there in the config.yaml file for prometheus to scrape aga
           - targets: ['{PLACE_THE_IP_ADDRESS_HERE}:9117']
 ```
 
-Now create the configMap and makle the required changes to the deployment.yaml by uncommenting the commented lines under the Prometheus Server container such that it looks like the YAML below:
+Now create the configMap and make the required changes to the deployment.yaml by uncommenting the commented lines under the Prometheus Server container such that it looks like the YAML below:
 
 ```
       - image: prom/prometheus

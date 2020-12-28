@@ -24,12 +24,12 @@ All docker images are provided for this course from CloudAcademy in the YAML fil
 
 ## Getting Started
 
-To kick things off clone this repo:
+To kick things off clone this repo and navigate to the directory:
 ```
 git clone https://github.com/cloudacademy/Flyby-Prometheus-Exporter.git
 cd Flyby-Prometheus-Exporter
 ```
-After that we are going to create the services for our Deployment:
+After that we are going to create the services for our deployment:
 ```
 kubectl create -f environment.yaml
 ```
@@ -63,6 +63,13 @@ Place the IP provided there in the config.yaml file for prometheus to scrape aga
           static_configs:
           - targets: ['{PLACE_THE_IP_ADDRESS_HERE}:9117']
 ```
+
+Apply the changes to the config.yaml file and wait at least a minute for the configuration to be applied:
+
+```
+kubectl apply -f config.yaml
+```
+
 
 ## Accessing our Prometheus Dashboard
 

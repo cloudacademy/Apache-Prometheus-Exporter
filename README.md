@@ -37,9 +37,8 @@ Set the context:
 ```
 kubectl config set-context --current --namespace prometheus
 ```
-Now we will create the deployment itself. Since our config for prometheus resides in a configMap we will create that first and then the deployment. The selectors from the environment.yaml will associate the deployment with the appropriate services and expose our microservices approriately.
+The selectors from the environment.yaml will associate the deployment with the appropriate services and expose our microservices approriately.
 ```
-kubectl create -f config.yaml
 kubectl create -f deployment.yaml
 ```
 Verify we can see the deployment:
@@ -64,10 +63,29 @@ Place the IP provided there in the config.yaml file for prometheus to scrape aga
           - targets: ['{PLACE_THE_IP_ADDRESS_HERE}:9117']
 ```
 
-Apply the changes to the config.yaml file and wait at least a minute for the configuration to be applied:
+Now create the configMap and makle the required changes to the deployment.yaml by uncommenting the commented lines under the Prometheus Server container such that it looks like the YAML below:
 
 ```
-kubectl apply -f config.yaml
+      - image: prom/prometheus
+        name: prom-server
+        ports:
+          - containerPort: 9090
+        volumeMounts:
+        _  - mountPath: /etc/prometheus
+        _    name: prom-config
+        resources:
+         limits:
+          memory: "128Mi"
+          cpu: "250m"
+      volumes:
+        - name: prom-config
+          configMap:
+            name: prometheusconfigfile
+```
+
+```
+kubectl create -f config.yaml
+kubectl apply -f deployment.yaml
 ```
 
 

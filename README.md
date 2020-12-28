@@ -113,5 +113,5 @@ Now that you've got a working Prometheus Deployment complete with an Apache Webs
 And when you're all done - Clean up the environment:
 
 ```
-kubectl delete -f environment.yaml -f config.yaml -f deployment.yaml
+kubectl delete -f environment.yaml -f config.yaml -f deployment2.yaml
 ```

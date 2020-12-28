@@ -71,8 +71,9 @@ kubectl delete -f deploymentv1.yaml
 kubectl create -f deploymentv2.yaml
 ```
 
+## After Prometheus is Started
 
-## Accessing our Prometheus Dashboard
+### Accessing our Prometheus Dashboard
 
 Now that our environment is setup with a proper Apache server, exporter, and a Prometheus server, we can access them to see their data.
 

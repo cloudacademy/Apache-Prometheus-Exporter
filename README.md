@@ -67,7 +67,7 @@ Create the configMap, delete the old deployment, and create the new deployment (
 ```
 kubectl create -f config.yaml
 kubectl delete -f deploymentv1.yaml
-{Wait for deploymentv1 to be destroyed}
+{Wait for deploymentv1 to be destroyed, it can take up to one minute}
 kubectl create -f deploymentv2.yaml
 ```
 

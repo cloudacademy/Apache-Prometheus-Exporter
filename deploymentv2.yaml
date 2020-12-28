@@ -49,5 +49,5 @@ spec:
       volumes:
         - name: prom-config
           configMap:
-            name: prometheusconfigfilev2
+            name: prometheusconfigfilev1
 status: {}

@@ -7,7 +7,7 @@ data:
         - job_name: 'apache'
           scrape_interval: 5s
           static_configs:
-          - targets: ['172.17.0.3:9117']
+          - targets: ['172.17.0.6:9117']
 kind: ConfigMap
 metadata:
   creationTimestamp: null

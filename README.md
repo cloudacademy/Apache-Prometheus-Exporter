@@ -63,7 +63,7 @@ Place the IP provided there in the config.yaml file for prometheus to scrape aga
           - targets: ['{PLACE_THE_IP_ADDRESS_HERE}:9117']
 ```
 
-Now create the configMap and make the required changes to the deployment.yaml by uncommenting the commented lines under the Prometheus Server container such that it looks like the YAML below:
+Now create the configMap and make the required changes to the deployment.yaml by altering the version number in the volumes stack from v1 to v2:
 
 ```
       - image: prom/prometheus
@@ -78,7 +78,7 @@ Now create the configMap and make the required changes to the deployment.yaml by
           memory: "128Mi"
           cpu: "250m"
       volumes:
-        - name: prom-config
+        - name: prom-configv2
           configMap:
             name: prometheusconfigfile
 ```

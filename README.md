@@ -26,8 +26,8 @@ All docker images are provided for this course from CloudAcademy in the YAML fil
 
 To kick things off clone this repo and navigate to the directory:
 ```
-git clone https://github.com/cloudacademy/Flyby-Prometheus-Exporter.git
-cd Flyby-Prometheus-Exporter
+git clone https://github.com/cloudacademy/Apache-Prometheus-Exporter.git
+cd Apache-Prometheus-Exporter
 ```
 After that we are going to create the services for our deployment:
 ```
